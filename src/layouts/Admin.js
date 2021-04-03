@@ -114,8 +114,8 @@ class AdminLayout extends React.Component {
 
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(this.mainPanel.current);
-      document.body.classList.toggle("perfect-scrollbar-on");
+
+ 
     }
     this.initializeMetamask()
     window.ethereum.on('accountsChanged', (accounts)=> this.handleNewAccounts(accounts[0]))
@@ -125,7 +125,6 @@ class AdminLayout extends React.Component {
   componentWillUnmount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps.destroy();
-      document.body.classList.toggle("perfect-scrollbar-on");
     }
   }
   componentDidUpdate(e) {
