@@ -420,6 +420,18 @@ class Dashboard extends React.Component {
               </Card>
             </Col>
             </Row>
+            <Row>
+              <Col md="12">
+                <Card>
+              <CardHeader>
+                  <CardTitle tag="h2">Decentralized Servers</CardTitle>
+                </CardHeader>
+                <CardBody>
+                <iframe src="https://decentraland.github.io/catalyst-monitor/" style={{height:"425px", width:"140%", transform: "scale(0.7) translate(-20.4%,0%)",border:"0px solid #000", padding:"0px", margin:"0px",verticalAlign:"top",textAlign:"left", overflow:"hidden"}} frameBorder="0"></iframe>
+                  </CardBody>
+                  </Card>
+              </Col>
+            </Row>
         </div>
       </>
     );
