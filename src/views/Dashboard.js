@@ -232,6 +232,14 @@ class Dashboard extends React.Component {
                         <td><a href="https://market.decentraland.org/">Twitter</a></td>
                         <td><a href="https://dcl.gg/discord">Discord</a></td>
                       </tr>
+                      <tr>
+                        <td><a href="https://opensea.io/">Opensea</a></td>
+                        <td><a href="https://rarible.com/">Rarible</a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://makersplace.com/">MakersPlace</a></td>
+                        <td><a href="https://mintable.app/">Mintable</a></td>
+                      </tr>
                     </tbody>
                   </Table>
                     </Col>
