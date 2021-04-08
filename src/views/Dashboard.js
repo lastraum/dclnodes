@@ -40,6 +40,7 @@ import {
   CarouselIndicators,
   CarouselCaption,
   Button,
+  Table,
   Jumbotron
 } from "reactstrap";
 // core components
@@ -51,8 +52,8 @@ import {
 
 import BubbleChart from '@weknow/react-bubble-chart-d3'; 
 
-const servers = ["peer-eu1.decentraland.org", "peer.decentraland.org", "peer-ec1.decentraland.org", "peer-wc1.decentraland.org", "peer-ap1.decentraland.org", "interconnected.online", "peer.melonwave.com", "decentraland.org.cn", "peer.kyllian.me", "peer.uadevops.com", "peer.dclnodes.io"]
-const realmNames = ["fenrir", "hephaestus", "heimdallr", "baldr", "artemis", "loki", "poseidon", "cn86", "unicorn", "thor", "odin"]
+const servers = ["peer-eu1.decentraland.org", "peer.decentral.games", "peer.decentraland.org", "peer-ec1.decentraland.org", "peer-wc1.decentraland.org", "peer-ap1.decentraland.org", "interconnected.online", "peer.melonwave.com", "decentraland.org.cn", "peer.kyllian.me", "peer.uadevops.com", "peer.dclnodes.io"]
+const realmNames = ["fenrir", "dg", "hephaestus", "heimdallr", "baldr", "artemis", "loki", "poseidon", "cn86", "unicorn", "thor", "odin"]
 
 
 class Dashboard extends React.Component {
@@ -207,16 +208,35 @@ class Dashboard extends React.Component {
       </Col>
       </Row>
           <Row>
-            <Col lg="3" md="6" sm="6">
+            <Col lg="6" md="6" sm="6">
               <Card className="card-stats">
                 <CardBody>
                   <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-globe text-warning" />
-                      </div>
+                  <Col md="8" xs="8">
+                    <h2>Helpful Links</h2>
+                    <Table bordered={false}>
+                    <tbody>
+                      <tr>
+                        <td><a href="https://market.decentraland.org/">Marketplace</a></td>
+                        <td><a href="https://rewards.decentraland.org/">Rewards</a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://builder.decentraland.org/">Builder</a></td>
+                        <td><a href="https://builder.decentraland.org/claim-name">Claim Names</a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="ttps://governance.decentraland.org/">DAO</a></td>
+                        <td><a href="https://docs.decentraland.org/">Developers</a></td>
+                      </tr>
+                      <tr>
+                        <td><a href="https://market.decentraland.org/">Twitter</a></td>
+                        <td><a href="https://dcl.gg/discord">Discord</a></td>
+                      </tr>
+                    </tbody>
+                  </Table>
                     </Col>
-                    <Col md="8" xs="7">
+
+                    <Col md="4" xs="4">
                       <div className="numbers">
                         <p className="card-category">Users Online</p>
                         <CardTitle tag="p">{this.state.totalUsers}</CardTitle>
@@ -226,32 +246,69 @@ class Dashboard extends React.Component {
                   </Row>
                 </CardBody>
                 <CardFooter>
-                  <hr />
+                 
                 </CardFooter>
               </Card>
-              </Col>
 
-              <Col lg="3" md="6" sm="6">
-                
-              <Card className="card-stats">
+              <Card>
+                <CardHeader>
+                  <CardTitle tag="h2">Decentraland Events</CardTitle>
+                  <a href="https://events.decentraland.org/api/events">View All Events</a>
+                </CardHeader>
                 <CardBody>
-                  <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-globe text-warning" />
-                      </div>
-                    </Col>
-                    <Col md="8" xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Average Hourly Users Online</p>
-                        <CardTitle tag="p">Coming soon</CardTitle>
-                        <p />
-                      </div>
-                    </Col>
-                  </Row>
+                <Carousel
+                    activeIndex={this.state.eventPointer}
+                    next={this.nextEvent}
+                    previous={this.previousEvent}
+                  >
+                    <CarouselIndicators items={this.state.events} activeIndex={this.state.eventPointer} />
+                    {this.state.events.map((item, index) => (
+                      <CarouselItem
+                      key={item.id}
+                    >
+                      <img src={item.image} alt={item.name} />
+                      <CarouselCaption captionText={item.name} captionHeader={item.name} />
+                    </CarouselItem>
+                    ))}
+                    <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previousEvent} />
+                    <CarouselControl direction="next" directionText="Next" onClickHandler={this.nextEvent} />
+                  </Carousel>
+                  <br></br>
+                  <h2>{ 
+                    this.state.events.length > 0 ? 
+                    this.state.events[this.state.eventPointer].name: ""}</h2>
+                    <h4>{ 
+                    this.state.events.length > 0 ? "Date:    ": ""}
+                    {this.state.events.length > 0 ? new Date(this.state.events[this.state.eventPointer].start_at).toLocaleDateString(): ""}
+
+                   </h4>
+                  <h4>{ 
+                    this.state.events.length > 0 ? "Oranized by: "
+                    :""}
+                    <span style={{color:"orangered", fontSize:'large'}}>{this.state.events.length > 0 ?
+                    this.state.events[this.state.eventPointer].user_name : ""}</span>
+                   </h4>
+                  <h4>{ 
+                    this.state.events.length > 0 ? "Location: " + this.state.events[this.state.eventPointer].coordinates[0] + "," + this.state.events[this.state.eventPointer].coordinates[1] + "    ":""}
+                    <span style={{color:"orangered", fontSize:'large'}}>{this.state.events.length > 0 ?
+                    this.state.events[this.state.eventPointer].live ? "LIVE" : ""
+                    :""}</span>
+                   </h4>
+                   <h4>{ 
+                    this.state.events.length > 0 ? "Attending : " + this.state.events[this.state.eventPointer].total_attendees :""}
+                   </h4>
+                  <h5>{
+                  this.state.events.length > 0 ? 
+                  this.state.events[this.state.eventPointer].description: ""}</h5>
+                    <br></br>
+                    {this.state.events.length > 0 ? 
+                  <Button color="danger" block onClick={this.jumpIn}>JUMP IN</Button>: ""}
                 </CardBody>
                 <CardFooter>
                   <hr />
+                  <div className="stats">
+                    <i className="fa fa-history" /> Updated 3 minutes ago
+                  </div>
                 </CardFooter>
               </Card>
                   
@@ -326,75 +383,7 @@ class Dashboard extends React.Component {
                   <hr />
                 </CardFooter>
               </Card>
-            </Col>
-            </Row>
-
-            <Row>
-            <Col lg="6" md="6">
-            <Card>
-                <CardHeader>
-                  <CardTitle tag="h2">Decentraland Events</CardTitle>
-                  <a href="https://events.decentraland.org/api/events">View All Events</a>
-                </CardHeader>
-                <CardBody>
-                <Carousel
-                    activeIndex={this.state.eventPointer}
-                    next={this.nextEvent}
-                    previous={this.previousEvent}
-                  >
-                    <CarouselIndicators items={this.state.events} activeIndex={this.state.eventPointer} />
-                    {this.state.events.map((item, index) => (
-                      <CarouselItem
-                      key={item.id}
-                    >
-                      <img src={item.image} alt={item.name} />
-                      <CarouselCaption captionText={item.name} captionHeader={item.name} />
-                    </CarouselItem>
-                    ))}
-                    <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previousEvent} />
-                    <CarouselControl direction="next" directionText="Next" onClickHandler={this.nextEvent} />
-                  </Carousel>
-                  <br></br>
-                  <h2>{ 
-                    this.state.events.length > 0 ? 
-                    this.state.events[this.state.eventPointer].name: ""}</h2>
-                    <h4>{ 
-                    this.state.events.length > 0 ? "Date:    ": ""}
-                    {this.state.events.length > 0 ? new Date(this.state.events[this.state.eventPointer].start_at).toLocaleDateString(): ""}
-
-                   </h4>
-                  <h4>{ 
-                    this.state.events.length > 0 ? "Oranized by: "
-                    :""}
-                    <span style={{color:"orangered", fontSize:'large'}}>{this.state.events.length > 0 ?
-                    this.state.events[this.state.eventPointer].user_name : ""}</span>
-                   </h4>
-                  <h4>{ 
-                    this.state.events.length > 0 ? "Location: " + this.state.events[this.state.eventPointer].coordinates[0] + "," + this.state.events[this.state.eventPointer].coordinates[1] + "    ":""}
-                    <span style={{color:"orangered", fontSize:'large'}}>{this.state.events.length > 0 ?
-                    this.state.events[this.state.eventPointer].live ? "LIVE" : ""
-                    :""}</span>
-                   </h4>
-                   <h4>{ 
-                    this.state.events.length > 0 ? "Attending : " + this.state.events[this.state.eventPointer].total_attendees :""}
-                   </h4>
-                  <h5>{
-                  this.state.events.length > 0 ? 
-                  this.state.events[this.state.eventPointer].description: ""}</h5>
-                    <br></br>
-                    {this.state.events.length > 0 ? 
-                  <Button color="danger" block onClick={this.jumpIn}>JUMP IN</Button>: ""}
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="fa fa-history" /> Updated 3 minutes ago
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="6" md="6">
-            <Card>
+              <Card>
                 <CardHeader>
                   <CardTitle tag="h2">Decentraland Nodes</CardTitle>
                 </CardHeader>
@@ -430,7 +419,7 @@ class Dashboard extends React.Component {
                 </CardBody>
               </Card>
             </Col>
-          </Row>
+            </Row>
         </div>
       </>
     );
