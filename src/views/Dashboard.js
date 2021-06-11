@@ -52,8 +52,8 @@ import {
 
 import BubbleChart from '@weknow/react-bubble-chart-d3'; 
 
-const servers = ["peer-eu1.decentraland.org", "peer.decentral.games", "peer.decentraland.org", "peer-ec1.decentraland.org", "peer-wc1.decentraland.org", "peer-ap1.decentraland.org", "interconnected.online", "peer.melonwave.com", "decentraland.org.cn", "peer.kyllian.me", "peer.uadevops.com", "peer.dclnodes.io"]
-const realmNames = ["fenrir", "dg", "hephaestus", "heimdallr", "baldr", "artemis", "loki", "poseidon", "cn86", "unicorn", "thor", "odin"]
+const servers = ["peer.usadevops.com", "peer-eu1.decentraland.org", "peer.decentral.games", "peer.decentraland.org", "peer-ec1.decentraland.org", "peer-wc1.decentraland.org", "peer-ap1.decentraland.org", "interconnected.online", "peer.melonwave.com", "peer.kyllian.me", "peer.dclnodes.io"]
+const realmNames = ["marvel", "hephaestus", "dg", "fenrir", "heimdallr", "baldr", "artemis", "loki", "poseidon", "unicorn", "odin"]
 
 
 class Dashboard extends React.Component {
